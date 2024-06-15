@@ -10,6 +10,8 @@ import Aviator_BettingGroup from "./Aviator_BettingGroup";
 import Aviator_TopBetGroup from "./Aviator_TopBetGroup";
 import Aviator_WaitingGroup from "./Aviator_WaitingGroup";
 import Aviator_NhomDatCuoc from "./Aviator_NhomDatCuoc";
+import Aviator_History from "./Aviator_History";
+import Aviator_HistoryGroup from "./Aviator_HistoryGroup";
 
 const {ccclass, property} = cc._decorator;
 
@@ -26,6 +28,9 @@ export default class Aviator_GameplayUI extends cc.Component {
 
     @property(Aviator_WaitingGroup)
     public waitingGroup: Aviator_WaitingGroup = null;
+
+    @property(Aviator_HistoryGroup)
+    public historyGroup: Aviator_HistoryGroup = null;
 
     @property(Aviator_NhomDatCuoc)
     public nhomDatCuoc: Aviator_NhomDatCuoc = null;
@@ -47,15 +52,11 @@ export default class Aviator_GameplayUI extends cc.Component {
         this.SetWaitingGroupState(false);
 
         //this.betBoxGroup.SetCashOutStateBetBox();
-
-        //this.nhomDatCuoc.GetDatCuoc1().HandleStartRound();
     }
 
     public HandleEndRound(){
         this.bettingGroup.SetFlewAwayState(true);
         this.bettingGroup.SetXCostColor(cc.Color.RED);
-
-        this.nhomDatCuoc.GetDatCuoc1().HandleEndRound();
     }
 
     public HandleWaittingRound(){

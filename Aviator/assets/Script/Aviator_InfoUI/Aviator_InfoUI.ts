@@ -15,13 +15,33 @@ export default class Aviator_InfoUI extends cc.Component {
     public static Instance: Aviator_InfoUI = null;
 
     @property(cc.Label)
+    private moneyCashOutLabel: cc.Label = null;
+
+    @property(cc.Label)
     private currentMoneyLabel: cc.Label = null;
 
     protected onLoad(): void {
         Aviator_InfoUI.Instance = this;
     }
 
+    protected start(): void {
+        this.SetMoneyCashOutState(false);
+    }
+
     public SetCurrentMoneyLabel(value: number){
         this.currentMoneyLabel.string = "" + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+    public SetMoneyCashOutLabel(value: number){
+        this.moneyCashOutLabel.string = "+" + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+
+    public SetMoneyCashOutState(state: boolean){
+        this.moneyCashOutLabel.node.active = state;
+
+        if(state){    
+            this.scheduleOnce(() => {
+                this.SetMoneyCashOutState(false);
+            }, 2);
+        }
     }
 }

@@ -27,15 +27,15 @@ export default class Aviator_NhomDatCuoc extends cc.Component {
 
     public SetCashOutStateBetBox(){
         if(this.datCuoc1.node.active){
-            if(this.datCuoc1.GetBetButton().IsBetting()){
-                this.datCuoc1.GetBetButton().SwitchToCashOutButton();
+            if(this.datCuoc1.IsBetting()){
+                this.datCuoc1.SwitchToCashOutButton();
             }
         }
     }
 
     public HandleStartBet(){
-        if(this.datCuoc1.node.active && this.datCuoc1.GetBetButton().IsBetting()){
-            this.datCuoc1.GetBetButton().SwitchToCashOutButton();
+        if(this.datCuoc1.node.active && this.datCuoc1.IsBetting()){
+            this.datCuoc1.SwitchToCashOutButton();
             Aviator_GameManager.Instance.BetMoney(this.datCuoc1.GetBetLevel());
         }
     }

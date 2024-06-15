@@ -8,21 +8,51 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class NewClass extends cc.Component {
+export default class Aviator_HistoryGroup extends cc.Component {
 
-    @property(cc.Label)
-    label: cc.Label = null;
+    private isShow: boolean = false;
 
-    @property
-    text: string = 'hello';
+    @property(cc.Prefab)
+    private historyPrefab: cc.Prefab = null;
 
-    // LIFE-CYCLE CALLBACKS:
+    @property(cc.Node)
+    private historyList: cc.Node = null;
 
-    // onLoad () {}
+    @property(cc.Node)
+    private roundHistoryGroup: cc.Node = null;
 
-    start () {
+    @property(cc.Node)
+    private roundHistoryList: cc.Node = null;
 
+    @property(cc.Button)
+    private historyButton: cc.Button = null;
+
+    protected onLoad(): void {
+        this.historyButton.node.on('click', this.OnHistoryButtonClick, this);
     }
 
-    // update (dt) {}
+    private OnHistoryButtonClick() {
+        this.SetRoundHistoryGroupState();
+    }
+
+    public SetRoundHistoryGroupState() {
+        this.isShow = !this.isShow;
+        this.roundHistoryGroup.active = this.isShow;
+    }
+
+    public GetRounndHistoryList() {
+        return this.roundHistoryList;
+    }
+
+    public GetHistoryList() {
+        return this.historyList;
+    }
+
+    public GetHistoryButton() {
+        return this.historyButton;
+    }
+
+    public SpawnHistory(cost: number){
+        let history = cc.instantiate(this.historyPrefab);   
+    }
 }

@@ -102,6 +102,8 @@ export default class Aviator_GameManager extends cc.Component {
 
     public SetCurrentMoney(value: number): void {
         this.currentMoney = value;
+        this.currentMoney = Math.floor(this.currentMoney);
+
         Aviator_InfoUI.Instance.SetCurrentMoneyLabel(this.currentMoney);
     }
     
@@ -126,6 +128,13 @@ export default class Aviator_GameManager extends cc.Component {
 
 
     //Function
+
+    public HandleCashOut(moneyCashOut : number){
+        this.SetCurrentMoney(this.currentMoney + moneyCashOut);
+
+        Aviator_InfoUI.Instance.SetMoneyCashOutState(true);
+        Aviator_InfoUI.Instance.SetMoneyCashOutLabel(moneyCashOut);
+    }
 
     private HandleStartRound(){
         this.nhomDatCuoc.HandleStartBet();
@@ -164,6 +173,10 @@ export default class Aviator_GameManager extends cc.Component {
 
     private HandleEndRound(){
 
+        if(this.nhomDatCuoc.GetDatCuoc1().IsCashOut()){
+            this.nhomDatCuoc.GetDatCuoc1().SwitchToBetButton();
+        }
+        
         Aviator_GameplayUI.Instance.HandleEndRound();
 
         this.scheduleOnce(() => {
